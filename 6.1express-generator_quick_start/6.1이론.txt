@@ -1,0 +1,18 @@
+express 패키지를 쉽게 사용할 수 있도록 해주는 패키지가 있으니 글로벌로 설치해서 사용하자.
+    - npm i -g express-generator
+    - 프로젝트 생성
+        - express learn-express --view=pug
+        - --view=pug : 뷰엔진을 pug로 생성한다. 원래 jade인데 pug로 이름을 바꿨다.
+
+프로젝트 구조
+    - app.js
+        - 핵심적인 서버 역할
+    - bin
+        - www 파일은 서버를 실행하는 스크립트
+    - public
+        - 외부(브라우저 등의 클라이언트)에서 접근 가능한 파일들을 모아둔 곳
+        - 이미지, 자바스크립트, 씨에스에스 파일들이 있다.
+    - routes
+        - 주소별로 라우터를 모아둔 곳
+    - views
+        - 템플릿 파일을 모아둔 곳
