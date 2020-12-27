@@ -1,0 +1,23 @@
+- npm outdated
+ - 설치된 패키지의 버전 정보를 확인할 수 있다.
+
+- npm update
+ - npm update [패키지명]
+ - 패키지 버전 업데이트
+
+- npm uninstall
+ - 패키지 삭제
+ - npm rm도 가능
+
+- npm search
+ - npm 패키지 검색 가능
+
+- npm info
+ - 패키지의 세부 정보
+ - package.json의 내용과 의존 관계, 설치 가능한 버전 정보등 표시
+
+- npm adduser
+ - npm 로그인을 위한 명령어이다.
+ - 배포 안할거면 필요없는 명령어 이긴 하다.
+
+ - 노드교과서 5.4 절에 다른 명령어 들도 있다. 배포와 관련된 것들이다.
