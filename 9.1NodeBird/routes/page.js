@@ -10,7 +10,7 @@ router.get( '/join', ( req, res, next ) => {
     res.render( 'join', {
         title: '회원가입 - NodeBird',
         user: null,
-        joinError: req.flash( 'joinError' );
+        joinError: req.flash( 'joinError' )
     } );
 } );
 

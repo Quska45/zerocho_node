@@ -19,7 +19,7 @@ app.set( 'port', process.env.PORT || 8081 );
 app.use( morgan( 'dev' ) );
 app.use( express.static( path.join( __dirname, 'public' ) ) );
 app.use( express.json() );
-app.use( express.urlencoded( { extended: flase } ) );
+app.use( express.urlencoded( { extended: false } ) );
 //app.use( cookieParser( 'nodebirdsecret' ) );
 app.use( cookieParser( process.env.COOKIE_SECRET ) );
 app.use(session({

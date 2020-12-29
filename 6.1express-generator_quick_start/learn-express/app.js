@@ -14,7 +14,7 @@ var app = express();
 
 // view engine setup
 // express 앱에 대한 설정이다.(set)
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'views')); //템플릿이 있는 경로 설정
 app.set('view engine', 'pug');
 
 // express에 미들웨어를 연결하는 코드이다.(use)
