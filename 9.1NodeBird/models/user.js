@@ -1,7 +1,5 @@
-const { DataTypes } = require("sequelize/types");
-
 module.exports = ( sequelize, DataTypes ) => {
-    sequelize.define('user', {
+    let user = sequelize.define('user', {
         email: {
             type: DataTypes.STRING( 40 ),
             allowNull: true,
@@ -16,7 +14,7 @@ module.exports = ( sequelize, DataTypes ) => {
             allowNull: true,
         },
         provider: {
-            type: DataTypes.STRONG( 10 ),
+            type: DataTypes.STRING( 10 ),
             allowNull: false,
             defaultValue: 'local',
         },
@@ -28,4 +26,8 @@ module.exports = ( sequelize, DataTypes ) => {
         timestamps: true, // createdAt, updatedAt 추가
         paranoid: true, // deletedAt 추가
     });
+    console.log('*********************ㅗㅓㅓㅏ');
+    console.log(user);
+    console.log(Object.keys(user));
+    return user;
 }

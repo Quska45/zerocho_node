@@ -4,13 +4,18 @@ const morgan = require( 'morgan' );
 const path = require( 'path' );
 const session = require( 'express-session' );
 const flash = require( 'connect-flash' );
+const passport = require( 'passport' );
 // 서버 시작 시 .env의 비밀키들을 process.env에 넣는다. 
 // env에 있는 파일들을 사용할 수 있다.
 require( 'dotenv' ).config();
 
 const pageRouter = require( './routes/page' );
+const { sequelize } = require( './models' ); // 서버와 모델 연결을 위한 객체 require
+const passportConfig = require( './passport' ); // index.js는 생략 된다는 것을 생각하자.
 
 const app = express();
+sequelize.sync(); // 서버와 모델 연결
+passportConfig( passport );
 
 app.set( 'views', path.join( __dirname, 'views' ) );
 app.set( 'view engine', 'pug' );
@@ -33,6 +38,10 @@ app.use(session({
     }
 }));
 app.use( flash() );
+app.use( passport.initialize() ); // 미들 웨어 요청에 passport설정을 심는다.
+// req.session에 passport 정보를 저장한다.
+// express-session이 생성해주는 req.session에 값이 저장 되기 때문에 express-session 미들웨어 뒤에 위치해야 한다.
+app.use( passport.session() );
 
 app.use( '/', pageRouter );
 

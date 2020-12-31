@@ -1,7 +1,5 @@
-const { DataTypes } = require("sequelize/types")
-
 module.exports = ( sequelize, DataTypes ) => {
-    sequelize.define('post', {
+    let post = sequelize.define('post', {
         content: {
             type: DataTypes.STRING( 140 ),
             allowNull: false,
@@ -14,4 +12,6 @@ module.exports = ( sequelize, DataTypes ) => {
         timestamps: true,
         paranoid: true,
     })
+
+    return post;
 }
