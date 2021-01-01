@@ -26,8 +26,5 @@ module.exports = ( sequelize, DataTypes ) => {
         timestamps: true, // createdAt, updatedAt 추가
         paranoid: true, // deletedAt 추가
     });
-    console.log('*********************ㅗㅓㅓㅏ');
-    console.log(user);
-    console.log(Object.keys(user));
     return user;
 }
