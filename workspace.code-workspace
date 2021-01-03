@@ -2,6 +2,12 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "../../알고리즘"
+		},
+		{
+			"path": "../quska45.github.io"
 		}
 	],
 	"settings": {}

@@ -15,7 +15,7 @@ router.post('/join', isNotLoggedIn, async ( req, res, next ) => {
         }
 
         const hash = await bcrypt.hash( password, 12 ); // crypto 모듈의 pbkdf2 메서드를 사용할 수도 있다.
-        await User.crete({
+        await User.create({
             email,
             nick,
             password: hash,
