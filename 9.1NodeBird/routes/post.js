@@ -3,10 +3,12 @@ const express = require( 'express' );
 const multer = require( 'multer' );
 const path = require( 'path' );
 const fs = require( 'fs' );
+const encode = require( 'urlencode' );
 
 const { Post, Hashtag, User } = require( '../models' );
 const { isLoggedIn } = require( './middlewares' );
 const { extname } = require('path');
+const url = require('url');
 
 const router = express.Router();
 fs.readdir('uploads', ( error ) => {
@@ -36,14 +38,15 @@ const upload = multer({
 // single 미들 웨어를 사용하고 있다.
 // req.file 객체를 확인해보면 상세한 정보를 확인 할 수 있다.
 router.post('/img', isLoggedIn, upload.single( 'img' ), ( req, res ) => {
-    console.log( req.file );
-    res.json({ url: `/img/${ req.file.filename }` });
+        console.log( req.file );
+        var fileName = encode.decode( req.file.filename );
+        res.json({ url: `/img/${ fileName }` });
 });
 
 // 게시글 업로드를 처리하는 라우터이다.
 // 이미지 업로드시 이미지 주소도 req.body.url로 전송되고 이미지가 아니라 경로를 받았기 때문에 none 미들웨어를 사용한다.
 // 정규표현식으로 해시태그를 추출하고 디비에 저장하고 게시글과 해시태그의 관계를 PostHashtag테이블에 넣습니다.
-const uploads = multer();
+const upload2 = multer();
 router.post('/', isLoggedIn, upload2.none(), async ( req, res, next ) => {
     try {
         const post = await Post.create({
@@ -64,4 +67,29 @@ router.post('/', isLoggedIn, upload2.none(), async ( req, res, next ) => {
         next( error );
     }
 });
+
+router.get('/hashtag', async ( req, res, next ) => {
+    const query = req.query.hashtag;
+    if( !query ){
+        return res.redirect( '/' );
+    }
+
+    try {
+        const hashtag = await Hashtag.findOne({ where: { title: query } });
+        let posts = [];
+        if( hashtag ){
+            // posts 정보를 가져올 때 user정보로 조인해서 가져온다.
+            posts = await hashtag.getPosts({ include: [{ model: User }] });
+        }
+        return res.render('main', {
+            title: `${query} | NodeBird`,
+            user: req.user,
+            twits: posts,
+        });
+    } catch (error) {
+        console.error( error );
+        return next( error );
+    }
+});
+
 module.exports = router;

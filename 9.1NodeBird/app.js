@@ -11,6 +11,8 @@ require( 'dotenv' ).config();
 
 const pageRouter = require( './routes/page' );
 const authRouter = require( './routes/auth' );
+const postRouter = require( './routes/post' );
+const userRouter = require( './routes/user' );
 const { sequelize } = require( './models' ); // 서버와 모델 연결을 위한 객체 require
 const passportConfig = require( './passport' ); // index.js는 생략 된다는 것을 생각하자.
 
@@ -24,6 +26,8 @@ app.set( 'port', process.env.PORT || 8081 );
 
 app.use( morgan( 'dev' ) );
 app.use( express.static( path.join( __dirname, 'public' ) ) );
+console.log(123);
+app.use( '/img', express.static( path.join( __dirname, 'uploads' ) ) );
 app.use( express.json() );
 app.use( express.urlencoded( { extended: false } ) );
 //app.use( cookieParser( 'nodebirdsecret' ) );
@@ -46,6 +50,8 @@ app.use( passport.session() );
 
 app.use( '/', pageRouter );
 app.use( '/auth', authRouter );
+app.use( '/post', postRouter );
+app.use( '/user', userRouter );
 
 app.use(( req, res, next ) => {
     const err = new Error( 'Not Found' );

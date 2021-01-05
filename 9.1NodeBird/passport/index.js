@@ -19,7 +19,18 @@ module.exports = ( passport ) => {
     // 세션에 저장 했던 아이디를 받아 디비에서 사용자 정보를 조회한다.
     // 조회한 정보를 req.user에 저장하므로 앞으로 req.user를 통해 로그인한 사용자의 정보를 가져올 수 있다.
     passport.deserializeUser(( id, done ) => {
-        User.findOne({ where: { id } })
+        User.findOne({ 
+            where: { id } ,
+            include: [{
+                model: User,
+                attributes: [ 'id', 'nick' ],
+                as: 'Followers',
+            }, {
+                model: User,
+                attributes: [ 'id', 'nick' ],
+                as: 'Followings',
+            }],
+        })
             .then( user => done( null, user ) )
             .catch( err => done( err ) );
     });

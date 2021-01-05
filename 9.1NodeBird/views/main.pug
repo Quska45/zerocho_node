@@ -29,7 +29,7 @@ block content
           .twit-content= twit.content
           if twit.img
             .twit-img
-              img(src=twit.img alt='섬네일')
+              img(src=twit.img alt=twit.img)
   script.
     if (document.getElementById('img')) {
       document.getElementById('img').addEventListener('change', function (e) {
@@ -39,7 +39,8 @@ block content
         var xhr = new XMLHttpRequest();
         xhr.onload = function () {
           if (xhr.status === 200) {
-            var url = JSON.parse(xhr.responseText).url;
+            var url = decodeURI(JSON.parse(xhr.responseText).url);
+            console.log(url)
             document.getElementById('img-url').value = url;
             document.getElementById('img-preview').src = url;
             document.getElementById('img-preview').style.display = 'inline';
@@ -49,6 +50,8 @@ block content
         };
         xhr.open('POST', '/post/img');
         xhr.send(formData);
+        console.log(formData.get('img'))
+        console.log(formData)
       });
     }
     document.querySelectorAll('.twit-follow').forEach(function (tag) {
