@@ -26,7 +26,6 @@ app.set( 'port', process.env.PORT || 8081 );
 
 app.use( morgan( 'dev' ) );
 app.use( express.static( path.join( __dirname, 'public' ) ) );
-console.log(123);
 app.use( '/img', express.static( path.join( __dirname, 'uploads' ) ) );
 app.use( express.json() );
 app.use( express.urlencoded( { extended: false } ) );
